@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="file-drop-area">
+            <div class="card" style="width: 18rem;">
+                <form method="post" enctype="multipart/form-data">
+                    <div id="divImageMediaPreview"></div>
+                        <div class="card-body">
+                            <h5 class="card-title" id="image-title">Upload Image</h5>
+                            <p class="card-text">Click classify after selecting image.</p>
+                            {{ classication_form.hidden_tag() }}
+                            <input type="file" name="file" id="file" class="file" accept=".jfif,.jpg,.jpeg,.png,.gif" value="Select File">
+                            <br><br>
+                            <h4>Model:</h4>
+                            <div class="text">
+                                {{ classication_form.model }}
+                                &nbsp;
+                                <input type="submit" class="btn btn-success text-center" value="Classify">
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    $(document).on('change', '.file', function()
+    {
+        var filesCount = $(this)[0].files.length;
+
+        var textbox = $("#image-title");
+
+        if (filesCount === 1) {
+            var fileName = $(this).val().split('\\').pop();
+            textbox.text(fileName);
+        } else {
+            textbox.text(filesCount + ' files selected');
+        }
+
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#divImageMediaPreview");
+            dvPreview.html("");            
+            $($(this)[0].files).each(function () {
+                var file = $(this);                
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "width: 286px; padding: 10px");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);                
+        });
+        } else {
+        alert("This browser does not support HTML5 FileReader.");
+        }
+
+    });
+
+</script>
+{% endblock %}
