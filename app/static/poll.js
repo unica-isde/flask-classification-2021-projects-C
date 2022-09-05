@@ -43,7 +43,8 @@ function download_plot(filename) {
     const anchor = document.createElement("a");
     let image = myChart.toBase64Image();
     anchor.href = image;
-    anchor.download = filename.replace(/\.[^/.]+$/, "") + "-result-plot.png";
+    anchor.download = filename.replace(/\.[^/.]+$/, "");
+    anchor.download = filename.replace("classifications_using_upload_", "") + "-result-plot.png";
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
