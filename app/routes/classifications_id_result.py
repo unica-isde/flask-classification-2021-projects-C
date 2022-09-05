@@ -16,4 +16,5 @@ def classifications_id_result_to_json(job_id, filename):
         result[key] = value
 
     # returns the json output of classification scores
-    return Response(json.dumps(result, indent=4), mimetype='application/json', headers={"Content-disposition": f"attachment; filename={'_'.join(filename.split('.')[:-1])}_result.json"})
+    filename = '_'.join( '_'.join(filename.split('.')[:-1]).split('_')[3:] )
+    return Response(json.dumps(result, indent=4), mimetype='application/json', headers={"Content-disposition": f"attachment; filename={filename}_result.json"})
