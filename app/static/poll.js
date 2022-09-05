@@ -38,15 +38,6 @@
     });
 }
 
-
-$(document).ready(function () {
-    var scripts = document.getElementById('polling');
-    var jobID = scripts.getAttribute('jobid');
-    update(jobID);
-});
-
-var myChart;
-
 // Function for downloading plot image
 function download_plot(filename) {
     const anchor = document.createElement("a");
@@ -58,6 +49,13 @@ function download_plot(filename) {
     document.body.removeChild(anchor);
 }
 
+$(document).ready(function () {
+    var scripts = document.getElementById('polling');
+    var jobID = scripts.getAttribute('jobid');
+    update(jobID);
+});
+
+var myChart;
 
 function makeGraph(results) {
     var ctx = document.getElementById("classificationOutput").getContext('2d');
