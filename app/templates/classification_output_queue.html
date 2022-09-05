@@ -35,11 +35,18 @@
                 <a class="btn btn-dark" href="/classifications" role="button">Back</a>
             </div>
             <br><br>
-            <!-- Add Download result button -->
+            <!-- Add download result button for json file -->
             <div class="container">
                 <div class="row align-self-end">
                     <div class="col">
                         <a class="btn btn-dark" href="/classifications/result/{{ jobID }}/{{ image_id }}" role="button">Download results</a>
+                    </div>
+                </div>
+                <br><br>
+                <!-- Add download result button for plot image -->
+                <div class="row align-self-end">
+                    <div class="col align-self-end">
+                        <a class="btn btn-dark" id="download-plot" onclick="download_plot('{{ image_id }}')" role="button">Download plot</a>
                     </div>
                 </div>
             </div>
