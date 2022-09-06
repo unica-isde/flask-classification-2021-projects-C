@@ -8,11 +8,10 @@
  * the content and request again.
  * The server is supposed to response when a change has been made on data.
  */
-function update(jobId) {
+ function update(jobId) {
     $.ajax({
         url: `/classifications/${jobId}`,
         success: function (data) {
-            console.log(data)
             switch (data['task_status']) {
                 case "finished":
                     $('#spinner').hide();
@@ -39,6 +38,17 @@ function update(jobId) {
     });
 }
 
+// Function for downloading plot image
+function download_plot(filename) {
+    const anchor = document.createElement("a");
+    let image = myChart.toBase64Image();
+    anchor.href = image;
+    anchor.download = filename.replace(/\.[^/.]+$/, "");
+    anchor.download = filename.replace("classifications_using_upload_", "") + "-result-plot.png";
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+}
 
 $(document).ready(function () {
     var scripts = document.getElementById('polling');
@@ -46,9 +56,11 @@ $(document).ready(function () {
     update(jobID);
 });
 
+var myChart;
+
 function makeGraph(results) {
     var ctx = document.getElementById("classificationOutput").getContext('2d');
-    var myChart = new Chart(ctx, {
+    myChart = new Chart(ctx, {
         type: 'horizontalBar',
         data: {
             labels: [results[0][0], results[1][0], results[2][0], results[3][0], results[4][0]],
@@ -80,6 +92,6 @@ function makeGraph(results) {
                     }
                 }]
             }
-        }
+        },
     });
 }
