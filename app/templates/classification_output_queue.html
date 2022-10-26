@@ -62,8 +62,8 @@
             </div>
             <div>
 
-                <a class="btn btn-dark float-right btn-download-results" role="button">Download results</a>
-                <a class="btn btn-dark float-right btn-download-plot" role="button">Download plot</a>
+                <a class="btn btn-dark float-right btn-download-results" href="{{ url_for("download_results", job_id=jobID) }}" role="button">Download results</a>
+                <a class="btn btn-dark float-right btn-download-plot" href="{{ url_for("download_plot", job_id=jobID) }}" role="button">Download plot</a>
         </div>
 
         </div>
