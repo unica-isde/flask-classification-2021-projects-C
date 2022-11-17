@@ -21,20 +21,26 @@ def classifications():
         image_id = form.image.data
         model_id = form.model.data
 
-        redis_url = Configuration.REDIS_URL
-        redis_conn = redis.from_url(redis_url)
-        with Connection(redis_conn):
-            q = Queue(name=Configuration.QUEUE)
-            job = Job.create(classify_image, kwargs={
-                "model_id": model_id,
-                "img_id": image_id
-            })
-            task = q.enqueue_job(job)
+        return classification(image_id, model_id)
+    else:
+        # otherwise, it is a get request and should return the
+        # image and model selector
+        return render_template('classification_select.html', form=form)
 
-        # returns the image classification output from the specified model
-        # return render_template('classification_output.html', image_id=image_id, results=result_dict)
-        return render_template("classification_output_queue.html", image_id=image_id, jobID=task.get_id())
 
-    # otherwise, it is a get request and should return the
-    # image and model selector
-    return render_template('classification_select.html', form=form)
+def classification(image_id, model_id):
+    """Function for running a classification job. Adds the job to the queue and returns the output scores from the
+        model."""
+    redis_url = Configuration.REDIS_URL
+    redis_conn = redis.from_url(redis_url)
+    with Connection(redis_conn):
+        q = Queue(name=Configuration.QUEUE)
+        job = Job.create(classify_image, kwargs={
+            "model_id": model_id,
+            "img_id": image_id
+        })
+        task = q.enqueue_job(job)
+
+    # returns the image classification output from the specified model
+    # return render_template('classification_output.html', image_id=image_id, results=result_dict)
+    return render_template("classification_output_queue.html", image_id=image_id, jobID=task.get_id())
