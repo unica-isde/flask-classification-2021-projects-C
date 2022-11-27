@@ -4,9 +4,14 @@
 
     <p style="margin-top:1cm;">This service provides the output scores for popular deep networks
         from the <a href="https://pytorch.org/docs/stable/torchvision/models.html">
-            Torchvision model zoo</a>. Go
-        <a href={{ url_for("classifications") }}>here</a> for
-        trying out the service.</p>
+            Torchvision model zoo</a>. </p>
+    <br>
+    <ul class="list-group">
+        <li class="list-group-item">Go <a href={{ url_for("classifications") }}>here</a> for trying out the service.</li>
+        <li class="list-group-item">Go <a href={{ url_for("classification_upload") }}>here</a> to upload your own images and try our service.</li>
+        <li class="list-group-item">Go <a href={{ url_for("image_histogram_select") }}>here</a> to visualize images' histogram.</li>
+        <li class="list-group-item">Go <a href={{ url_for("color_jitter_transformation") }}>here</a> to apply color jitter transformation to an image.</li>
+    </ul>
     <p style="margin-top:1cm;">For the list of models and images
         available, click
         <a href={{ url_for("info") }}>here</a>.</p>
