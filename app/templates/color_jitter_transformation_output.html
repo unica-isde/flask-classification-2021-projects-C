@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        .large-front-thumbnail {
+            position: relative;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+    </style>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <img class="large-front-thumbnail"
+                     src="{{ url_for('static', filename='transformed_imagenet_subset/'+img_name) }} "
+                     alt={{ image_id }}/>
+
+                <a class="btn btn-dark" href="/color_jitter_transformation" role="button">Back</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
