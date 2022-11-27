@@ -1,6 +1,6 @@
 function onOpenCvReady() {
-    var scripts = document.getElementById('calculate_histogram');
-    var image_id = scripts.getAttribute('image_id');
+    let scripts = document.getElementById('calculate_histogram');
+    let image_id = scripts.getAttribute('image_id');
     cv['onRuntimeInitialized']=()=>{
         calculate_histogram('imageSrc', 'displayCol')
     };
@@ -21,7 +21,6 @@ function calculate_histogram(image_id, displayCol) {
     let mask = new cv.Mat();
     let color = new cv.Scalar(255, 255, 255);
     let scale = 2;
-    // You can try more different parameters
     cv.calcHist(srcVec, channels, mask, hist, histSize, ranges, accumulate);
     let result = cv.minMaxLoc(hist, mask);
     let max = result.maxVal;
@@ -34,11 +33,12 @@ function calculate_histogram(image_id, displayCol) {
         let point2 = new cv.Point((i + 1) * scale - 1, src.rows - binVal);
         cv.rectangle(dst, point1, point2, color, cv.FILLED);
     }
-    cv.imshow(canvasOutId, dst);
+    cv.imshow(canvasOutId, dst);//prints in the output canvas
     src.delete(); dst.delete(); srcVec.delete(); mask.delete(); hist.delete();
     displayHistogram(displayCol);
 }
 
+/**Displays the output canvas after disabling the loading spinner**/
 function displayHistogram(displayCol){
     let spinner = document.getElementById(displayCol).getElementsByTagName('div')[0];
     let canvasOut = spinner.nextElementSibling;
