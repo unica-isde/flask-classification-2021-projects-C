@@ -11,7 +11,7 @@ class Configuration:
     models = ('resnet18', 'alexnet', 'vgg16', 'inception_v3',)
 
     # classification of uploaded images
-    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
     # web server
     SECRET_KEY = os.environ.get('SECRET_KEY') or '9cj328s61hsd8'

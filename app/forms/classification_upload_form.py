@@ -11,5 +11,5 @@ conf = Configuration()
 
 class ClassificationUploadForm(FlaskForm):
     model = SelectField('model', choices=conf.models, validators=[DataRequired()])
-    image = FileField('Upload your image...')
+    image = FileField('Upload your image...', validators=[DataRequired()])
     submit = SubmitField('Submit')
