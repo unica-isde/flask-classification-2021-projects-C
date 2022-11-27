@@ -4,8 +4,9 @@ from app import app
 from app.forms.classification_upload_form import ClassificationUploadForm
 from config import Configuration
 from werkzeug.utils import secure_filename
-from .classifications import classification
+from ml.classification_utils import add_classification_job
 import os
+from app.utils.allowed_file import allowed_file
 
 config = Configuration()
 
@@ -17,11 +18,6 @@ def classification_upload():
         model."""
     form = ClassificationUploadForm()
     if form.validate_on_submit():  # POST
-        # check if the form has the image data part
-        if form.image.data is None:
-            flash('No image submitted')
-            return redirect(request.url)
-
         image = form.image.data
 
         # The files that have no name are not saved
@@ -33,12 +29,9 @@ def classification_upload():
         if image and allowed_file(image.filename):
             filename = secure_filename(image.filename)
             image.save(os.path.join(config.image_folder_path, filename))
-            return classification(filename, form.model.data)
+            return add_classification_job(filename, form.model.data)
+        else:
+            flash('File format not supported. Pleas use png, jpg or jpeg')
+            return redirect(request.url)
 
     return render_template('classification_select_upload.html', form=form)
-
-
-def allowed_file(filename):
-    """Function that checks if the uploaded image's extension is among the allowed ones"""
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS

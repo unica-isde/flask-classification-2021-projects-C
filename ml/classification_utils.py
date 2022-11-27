@@ -9,7 +9,11 @@ import os
 import time
 import torch
 from PIL import Image
+from flask import render_template
 from torchvision import transforms
+import redis
+from rq import Connection, Queue
+from rq.job import Job
 
 from config import Configuration
 
@@ -84,3 +88,21 @@ def classify_image(model_id, img_id):
     img.close()
     time.sleep(5)
     return output
+
+
+def add_classification_job(image_id, model_id):
+    """Function for running a classification job.
+    Adds the job to the queue and renders the template showing the results."""
+    redis_url = Configuration.REDIS_URL
+    redis_conn = redis.from_url(redis_url)
+    with Connection(redis_conn):
+        q = Queue(name=Configuration.QUEUE)
+        job = Job.create(classify_image, kwargs={
+            "model_id": model_id,
+            "img_id": image_id
+        })
+        task = q.enqueue_job(job)
+
+    # returns the image classification output from the specified model
+    # return render_template('classification_output.html', image_id=image_id, results=result_dict)
+    return render_template("classification_output_queue.html", image_id=image_id, jobID=task.get_id())
