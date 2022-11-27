@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row align-items-center ">
+        <div class="col-md-1"></div>
+        <div class="col-md-5 mt-5">
+            <div class="card">
+                <img class="large-front-thumbnail"
+                     id="imageSrc"
+                     src="{{ url_for('static', filename='imagenet_subset/'+image_id) }} "
+                     alt={{ image_id }}/>
+            </div>
+        </div>
+        <div class="col-md-5 mt-5" id="displayCol">
+            <div id="spinner">
+                <div class="d-flex justify-content-center">
+                <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            </div>
+            <div id="display_card" class="card d-none">
+                <div class="row">
+                    <canvas id="canvasOutput" width="512" height="512"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <p>
+                An <b>image histogram</b> is a type of histogram that acts as a graphical representation of the tonal distribution in a digital image. It plots the number of pixels for each tonal value. By looking at the histogram for a specific image a viewer will be able to judge the entire tonal distribution at a glance.
+            </p>
+            <p>
+                The horizontal axis of the graph represents the tonal variations, while the vertical axis represents the total number of pixels in that particular tone.
+            </p>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-4">
+            <a class="btn btn-dark btn-block" href="/image_histogram_select" role="button">Back</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for("static", filename="calculate_histogram.js") }}" id="calculate_histogram" image_id={{ image_id }}></script>
+    <script async src="https://docs.opencv.org/4.5.4/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+{% endblock %}

@@ -10,8 +10,32 @@
             margin: 0 auto;
         }
 
+    </style>
+
+    <style>
+        .btn-download-results{
+            text-align: center;
+            display: block;
+            margin: 30px 0px;
+            font-size: 16px;
+            padding: 10px 20px;
+            width: 50%;
+        }
 
     </style>
+    <style>
+        .btn-download-plot{
+            text-align: center;
+            display: block;
+            margin: 100px -270px;
+            font-size: 16px;
+            padding: 10px 20px;
+            width: 50%;
+
+        }
+
+    </style>
+
     <div class="row">
         <div class="col">
             <div class="card">
@@ -20,6 +44,7 @@
                      alt={{ image_id }}/>
             </div>
         </div>
+
         <div class="col">
             <div class="card">
                 <div class="row">
@@ -30,10 +55,14 @@
                         </div>
                     </div>
                 </div>
-
-
                 <a class="btn btn-dark" onclick="javascript:window.history.back(-1);return false;" role="button">Back</a>
             </div>
+            <div>
+
+                <a class="btn btn-dark float-right btn-download-results" href="{{ url_for("download_results", job_id=jobID) }}" role="button">Download results</a>
+                <a class="btn btn-dark float-right btn-download-plot" href="{{ url_for("download_plot", job_id=jobID) }}" role="button">Download plot</a>
+        </div>
+
         </div>
     </div>
     <script src="{{ url_for("static", filename="poll.js") }}" id="polling" jobid={{ jobID }}></script>

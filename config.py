@@ -8,6 +8,8 @@ class Configuration:
 
     # classification
     image_folder_path = os.path.join(project_root, 'app/static/imagenet_subset')
+    transformed_image_folder_path = os.path.join(project_root, 'app/static/transformed_imagenet_subset')
+
     models = ('resnet18', 'alexnet', 'vgg16', 'inception_v3',)
 
     # classification of uploaded images

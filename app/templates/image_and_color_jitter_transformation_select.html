@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        .brightness-and-contrast{
+        display: flex;
+        }
+    </style>
+
+    <style>
+        .saturation-and-hue{
+        display: flex;
+        }
+    </style>
+
+    <h1>Select Image and Color Jitter Transformation parameters</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <h4>
+            Transform parameters:
+        </h4>
+        <div class="brightness-and-contrast">
+            <p>
+                Brightness:
+                {{ form.brightness }}
+                {% for error in form.brightness.errors %}
+                <small class="form-text text-muted ">
+                    {{ error }}
+                </small>
+                {% endfor %}
+            </p>
+            <p style="margin-left: -3px">
+                Contrast:
+                {{ form.contrast }}
+                {% for error in form.contrast.errors %}
+                <small class="form-text text-muted ">
+                    {{ error }}
+                </small>
+                {% endfor %}
+            </p>
+        </div>
+
+        <div class="saturation-and-hue">
+            <p>
+                Saturation:
+                {{ form.saturation }}
+                {% for error in form.saturation.errors %}
+                <small class="form-text text-muted ">
+                    {{ error }}
+                </small>
+                {% endfor %}
+            </p>
+            <p>
+                Hue:
+                {{ form.hue }}
+                {% for error in form.hue.errors %}
+                <small class="form-text text-muted ">
+                    {{ error }}
+                </small>
+                {% endfor %}
+            </p>
+        </div>
+        <h4>
+            Image:
+        </h4>
+        <p1>
+            {{ form.image }}
+        </p1>
+        <button type="submit" class="btn btn-dark mb-2">Submit</button>
+    </form>
+{% endblock %}
