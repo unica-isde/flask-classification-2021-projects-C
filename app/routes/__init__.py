@@ -5,4 +5,5 @@ from .download_results import *
 from .download_plot import *
 from .info import *
 from .home import *
+from .classification_upload import *
 from .image_histogram import *
